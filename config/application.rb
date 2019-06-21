@@ -10,7 +10,7 @@ require "action_controller/railtie"
 require "action_mailer/railtie"
 require "action_view/railtie"
 require "action_cable/engine"
-# require "sprockets/railtie"
+require "sprockets/railtie"
 require "rails/test_unit/railtie"
 
 # Require the gems listed in Gemfile, including any gems
@@ -22,6 +22,15 @@ module KrForceApi
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.2
 
+    credentials = Rails.application.credentials[Rails.env.to_sym]
+
+    config.load_defaults 5.2
+    config.generators.system_tests = nil
+
+    config.action_controller.allow_forgery_protection = false
+
+    config.action_mailer.preview_path = "#{ Rails.root }/lib/mailer_previews"
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
@@ -30,6 +39,17 @@ module KrForceApi
     # Only loads a smaller set of middleware suitable for API only apps.
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
+    config.middleware.insert_before 0, Rack::Cors, :debug => true, :logger => (-> { Rails.logger }) do
+      allow do
+        origins 'http://localhost:4200'
+        resource '*',
+          :headers => :any,
+          :methods => [:get, :post, :delete, :put, :options, :head, :patch],
+          :max_age => 0,
+          :credentials => true
+      end
+    end
+
     config.api_only = true
   end
 end
