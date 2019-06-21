@@ -16,16 +16,20 @@ sl = Level.create!(name: "Sith Lord", weight: 5, description: "Can use (or has u
 total_levels = [yn, pad, kn, mas, gm, sl]
 
 (1..20).each do |n|
-  u = User.create!(email: Faker::Internet.unique.email, name: Faker::Name.unique.name_with_middle)
-  s = Skill.find_or_create_by!(name: Faker::Job.key_skill)
-  !s[:description] && s.update!(description: Faker::Lorem.paragraph(4))
-
-  skl = SkillLevel.create!({
-    level: total_levels[rand(total_levels.length)],
-    skill: s
-  })
-  UserSkillLevel.create!({
-    user: u,
-    skill_level: skl
-  })
+  UserSkillLevel.transaction do
+    u = User.create!(email: Faker::Internet.unique.email, name: Faker::Name.unique.name_with_middle)
+    s = Skill.find_or_create_by!(name: Faker::Job.key_skill)
+    !s[:description] && s.update!(description: Faker::Lorem.paragraph(4))
+    puts "create a user #{u.email} and skill #{s.name}"
+    skl = SkillLevel.find_or_create_by!({
+      level: total_levels[rand(total_levels.length)],
+      skill: s
+    })
+    puts "created a skill level #{s.name}: #{skl.level.name}"
+    uskl = UserSkillLevel.find_or_create_by!({
+      user_id: u.id,
+      skill_level_id: skl.id
+    })
+    puts "created a skill level for the user #{uskl.user.name}: #{uskl.skill.name} #{uskl.level.name}"
+  end
 end
