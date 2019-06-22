@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_21_215516) do
+ActiveRecord::Schema.define(version: 2019_06_22_154035) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,6 +36,14 @@ ActiveRecord::Schema.define(version: 2019_06_21_215516) do
     t.integer "category", default: 0, null: false
     t.text "description"
     t.index ["name", "category"], name: "name_on_category", unique: true
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.string "name"
+    t.string "taggable_type"
+    t.bigint "taggable_id"
+    t.index ["name"], name: "index_tags_on_name", unique: true
+    t.index ["taggable_type", "taggable_id"], name: "index_tags_on_taggable_type_and_taggable_id"
   end
 
   create_table "user_skill_levels", force: :cascade do |t|
