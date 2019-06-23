@@ -4,6 +4,7 @@ module Types
     field :name, String, null: false
     field :description, String, null: true
     field :users, [UserType], null: true
+    field :levels, [LevelType], null: true
     field :user_skill_levels, [UserSkillLevelType], null: true
   end
 end

@@ -10,7 +10,7 @@ module Types
     end
 
     def levels(names: [], ids: [], weights: [])
-      (emails.present? || ids.present?) ? Level.where(names: names).or(Level.where(id: ids)).or(Level.where(weights: weights)) : Level.all
+      (names.present? || ids.present?) ? Level.where(names: names).or(Level.where(id: ids)).or(Level.where(weights: weights)) : Level.all
     end
 
     field :skills, [SkillType], null: false do
@@ -19,7 +19,7 @@ module Types
     end
 
     def skills(names: [], ids: [])
-      (emails.present? || ids.present?) ? Skill.where(names: names).or(Skill.where(id: ids)) : Skill.all
+      (names.present? || ids.present?) ? Skill.where(names: names).or(Skill.where(id: ids)) : Skill.all
     end
 
     field :users, [UserType], null: false do
