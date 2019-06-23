@@ -29,6 +29,8 @@ gem 'graphql', '~> 1.9', '>= 1.9.6'
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 # gem 'rack-cors'
+gem 'search_object', '~> 1.2'
+gem 'search_object_graphql', '~> 0.1'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

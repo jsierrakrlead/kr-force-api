@@ -33,9 +33,8 @@ ActiveRecord::Schema.define(version: 2019_06_22_154035) do
 
   create_table "skills", force: :cascade do |t|
     t.string "name", null: false
-    t.integer "category", default: 0, null: false
     t.text "description"
-    t.index ["name", "category"], name: "name_on_category", unique: true
+    t.index ["name"], name: "index_skills_on_name", unique: true
   end
 
   create_table "tags", force: :cascade do |t|

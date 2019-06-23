@@ -4,6 +4,6 @@ class CreateSkills < ActiveRecord::Migration[5.2]
       t.string :name, null: false
       t.text :description
     end
-    add_index :skills, [:name, :category], name: 'name_on_category', unique: true
+    add_index :skills, :name, unique: true
   end
 end
