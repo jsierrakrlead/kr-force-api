@@ -24,8 +24,8 @@ class Resolvers::SkillsSearch
 
   def normalize_filters(value, branches = [])
     scope = Skill.all
-    scope = scope.where("lower(description) LIKE ? ", "%#{value[:description_contains].downcase}%") if value[:description_contains]
-    scope = scope.where("lower(name) LIKE ? ", "%#{value[:name_contains]}%") if value[:name_contains]
+    scope = scope.where("lower(description) LIKE ? ", "%#{value[:description_contains].downcase.strip}%") if value[:description_contains]
+    scope = scope.where("lower(name) LIKE ? ", "%#{value[:name_contains].downcase.strip}%") if value[:name_contains]
 
     branches << scope
 
