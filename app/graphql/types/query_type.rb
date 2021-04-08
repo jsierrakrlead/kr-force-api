@@ -29,6 +29,9 @@ module Types
     end
 
     def user(id: id)
+      if id == "foo"
+        throw "Should not return this user"
+      end
       User.find_by(id: id)
     end
 
