@@ -33,3 +33,12 @@ This will allow you to view the database from the terminal by running:
 bin/rails c -e your_environment
 
 ```
+
+To set up the database you will need to seed it from the command line after the db has been created:
+
+```
+$ RAILS_ENV=your_env bin/rails db:setup
+
+```
+
+This should seed your database.
