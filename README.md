@@ -1,5 +1,17 @@
 # README
 
+To install rails via rvm, go to https://rvm.io/rvm/install and view the basic install.
+
+To run the application once rails is installed:
+
+```
+$ bundle install
+$ rails db:create
+$ rails db:setup
+$ rails s
+
+```
+
 The environment files take secrets or rails credentials file. For more information on rails credentials see:
 
 https://edgeguides.rubyonrails.org/security.html
